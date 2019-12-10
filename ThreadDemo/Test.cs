@@ -10,6 +10,7 @@ namespace ThreadDemo
     {
         public Test() {
             Name = "这是一个名字";
+            Console.WriteLine("Test构造");
         }
         ~Test() {
             Console.WriteLine("Test被析构");
