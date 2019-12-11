@@ -31,7 +31,7 @@ namespace PostgreSQLDemo
         private void Form1_Load(object sender, EventArgs e)
         {
             AllocConsole();
-            db = new DataStorage();
+            db = new DataStorage("Server=127.0.0.1;Port=5432;UserId=postgres;Password=123;Database=TestDb;");
         }
 
         private void button1_Click(object sender, EventArgs e)

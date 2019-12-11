@@ -34,6 +34,10 @@ namespace TCPClientDemo
 
         private void button1_Click(object sender, EventArgs e)
         {
+            if (client != null) {
+                client.disconnect();
+                client = null;
+            }
             string ip = "192.168.50.111";
             int port = 8888;
             client = new TCPClient();
@@ -43,11 +47,20 @@ namespace TCPClientDemo
             } else {
                 Console.WriteLine("链接失败");
             }
+            client.ActReceive = Receive;
+            thread = new Thread(new ThreadStart(client.Receive));
+            thread.Start();
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
             client.disconnect();
+            if (thread != null)
+            {
+                //thread.Abort();
+                thread.Join();
+                thread = null;
+            }
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -67,21 +80,17 @@ namespace TCPClientDemo
             }
         }
 
-        private void button4_Click(object sender, EventArgs e)
-        {
-            client.ActReceive = Receive;
-            thread = new Thread(new ThreadStart(client.Receive));
-            thread.Start();
-        }
+       
         void Receive(byte[] buff, int len) {
             string str = Encoding.ASCII.GetString(buff, 0, len);//Encoding.UTF8.GetString(buff, 0, len);
             Console.WriteLine(str);
         }
 
-        private void button5_Click(object sender, EventArgs e)
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             client.disconnect();
-            if (thread != null) {
+            if (thread != null)
+            {
                 //thread.Abort();
                 thread.Join();
                 thread = null;

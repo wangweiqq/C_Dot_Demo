@@ -23,7 +23,6 @@ namespace TCPServer
         {
             InitializeComponent();
         }
-
         private void Form1_Load(object sender, EventArgs e)
         {
             AllocConsole();
@@ -31,6 +30,10 @@ namespace TCPServer
 
         private void button1_Click(object sender, EventArgs e)
         {
+            if (listen != null) {
+                listen.disListen();
+                listen = null;
+            }
             listen = new TCPIP.TCPServer(8888);
             listen.ActRevice = Revice;
         }
@@ -47,6 +50,15 @@ namespace TCPServer
             string str2 = "Hello 2";
             byte[] buf = Encoding.ASCII.GetBytes(str2);
             listen.Send(threadid, buf, buf.Length);
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (listen != null)
+            {
+                listen.disListen();
+                listen = null;
+            }
         }
     }
 }

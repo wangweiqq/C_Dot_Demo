@@ -31,15 +31,27 @@ namespace TCPIP
         private void ListenForClients()
         {
             this.tcpListener.Start();
-            while (true)
+            Console.WriteLine("TCPServer 开始监听");
+            try
             {
-                //blocks until a client has connected to the server
-                TcpClient client = this.tcpListener.AcceptTcpClient();//create a thread to handle communication
-                //with connected client
-                Thread clientThread = new Thread(new ParameterizedThreadStart(HandleClientComm));
-                list.Add(clientThread.ManagedThreadId, client);
-                clientThread.Start(client);
-                Console.WriteLine("TCP客户端链接");
+                while (true)
+                {
+                    //blocks until a client has connected to the server
+                    TcpClient client = this.tcpListener.AcceptTcpClient();//create a thread to handle communication
+                                                                          //with connected client
+                    Thread clientThread = new Thread(new ParameterizedThreadStart(HandleClientComm));
+                    list.Add(clientThread.ManagedThreadId, client);
+                    clientThread.Start(client);
+                    Console.WriteLine("TCP客户端链接");
+                }
+            }
+            catch
+            {
+                //Console.WriteLine("Listen线程异常");
+            }
+            finally {
+                this.tcpListener.Stop();
+                Console.WriteLine("Listen线程停止");
             }
         }
         private void HandleClientComm(object client)
@@ -97,12 +109,12 @@ namespace TCPIP
         /// 取消监听
         /// </summary>
         public void disListen() {
+            tcpListener.Stop();
             foreach (var v in list) {
                 v.Value.Close();
             }
             list.Clear();
-            listenThread.Abort();
-            tcpListener.Stop();
+            listenThread.Abort();            
         }
     }
 }

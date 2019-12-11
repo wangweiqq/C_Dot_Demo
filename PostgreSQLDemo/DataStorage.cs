@@ -10,13 +10,13 @@ namespace DB
     public class DataStorage
     {
         Npgsql.NpgsqlConnection conn = null;
-        public DataStorage() {
-            conn = new Npgsql.NpgsqlConnection("Server=127.0.0.1;Port=5432;UserId=postgres;Password=123;Database=TestDb;");            
-            conn.Open();
-            
+        public DataStorage(string connectString) {
+            conn = new Npgsql.NpgsqlConnection(connectString);            
+            conn.Open();            
         }
         ~DataStorage() {
             conn.Close();
+            conn.Dispose();
         }
         /// <summary>
         /// 执行sql update，insert等语句，返回影响行数
@@ -24,11 +24,14 @@ namespace DB
         /// <param name="sql"></param>
         /// <returns></returns>
         public int ExecuteNonQuery(string sql) {
-            Npgsql.NpgsqlCommand command = new Npgsql.NpgsqlCommand(sql, conn);
+            
             int rowsaffected = -1;
             try
             {
-                rowsaffected = command.ExecuteNonQuery();
+                using (Npgsql.NpgsqlCommand command = new Npgsql.NpgsqlCommand(sql, conn))
+                {
+                    rowsaffected = command.ExecuteNonQuery();
+                }
                 Console.WriteLine("影响行数：{0}", rowsaffected);
             }
             catch (Exception ex)
@@ -43,11 +46,13 @@ namespace DB
         /// <param name="sql"></param>
         /// <returns></returns>
         public object ExecuteScalar(string sql) {
-            object obj = null;
-            Npgsql.NpgsqlCommand command = new Npgsql.NpgsqlCommand(sql, conn);
+            object obj = null;            
             try
             {
-                obj = command.ExecuteScalar();
+                using (Npgsql.NpgsqlCommand command = new Npgsql.NpgsqlCommand(sql, conn))
+                {
+                    obj = command.ExecuteScalar();
+                }
             }
             catch {
                 Console.WriteLine("查询数据失败");
@@ -55,11 +60,13 @@ namespace DB
             return obj;
         }
         public DataSet Query(string sql) {
-            DataSet ds = new DataSet();
-            NpgsqlDataAdapter adapter = new NpgsqlDataAdapter(sql, conn);
+            DataSet ds = new DataSet();            
             try
             {
-                adapter.Fill(ds);
+                using (NpgsqlDataAdapter adapter = new NpgsqlDataAdapter(sql, conn))
+                {
+                    adapter.Fill(ds);
+                }
             }
             catch {
                 ds = null;
