@@ -91,6 +91,9 @@ namespace ExcelManager
             if (string.IsNullOrEmpty(sheetname) || string.IsNullOrEmpty(filepath) || strlist.Length == 0) {
                 return false;
             }
+            var existingFile = new FileInfo(filepath);
+            if (existingFile.Exists)
+                existingFile.Delete();
             using (ExcelPackage package = new ExcelPackage())
             {
                 ExcelWorksheet worksheet = package.Workbook.Worksheets.Add(sheetname);
@@ -136,6 +139,9 @@ namespace ExcelManager
             if (string.IsNullOrEmpty(sheetname) || string.IsNullOrEmpty(filepath) || data == null || data.Rows.Count == 0) {
                 return false;
             }
+            var existingFile = new FileInfo(filepath);
+            if (existingFile.Exists)
+                existingFile.Delete();
             using (ExcelPackage package = new ExcelPackage())
             {
                 ExcelWorksheet worksheet = package.Workbook.Worksheets.Add(sheetname);
