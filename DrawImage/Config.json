@@ -10,6 +10,7 @@
     "lineWidth":2,
     "lineColor":"255,0,0",
     "fillColor":"0,255,0",
+    "pressColor":"0,255,255",
     "Point":"0,0",
     "txt":""    
   },

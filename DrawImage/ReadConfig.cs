@@ -23,6 +23,7 @@ namespace DrawImage
         public string text;//矩形文本
         public Color lineColor;//矩形边框颜色
         public Color fillColor;//矩形填充颜色
+        public Color pressColor;//鼠标按下颜色
     }
     /// <summary>
     /// 字体样式
@@ -43,6 +44,7 @@ namespace DrawImage
         public LineStyle lineStyle;//同上
         public Rectangle btnRect;//同按钮矩形，用于查询是否点击
         public Point[] linePoints;//链接线点位置
+        public bool isPress = false;//是否被按下
     }
     public class ReadConfig
     {
@@ -54,7 +56,7 @@ namespace DrawImage
         /// 按钮区域
         /// </summary>
         Region btnRegion;
-        Hashtable table;
+        public Hashtable table;
         public static ReadConfig Instance() {
             if (obj == null) {
                 obj = new ReadConfig();
@@ -137,6 +139,11 @@ namespace DrawImage
             {
                 but.fillColor = ParseColor(token);
             }
+            token = json["pressColor"];
+            if (token != null)
+            {
+                but.pressColor = ParseColor(token);
+            }
             token = json["Point"];
             if (token != null)
             {
@@ -211,7 +218,13 @@ namespace DrawImage
         }
         public void DrawSmallParts(ref Graphics g) {
             foreach (SmallParts part in table.Values) {
-                g.FillRectangle(new SolidBrush(part.btnStyle.fillColor), part.btnRect);
+                if (part.isPress) {
+                    g.FillRectangle(new SolidBrush(part.btnStyle.pressColor), part.btnRect);
+                }
+                else
+                {
+                    g.FillRectangle(new SolidBrush(part.btnStyle.fillColor), part.btnRect);
+                }
                 g.DrawRectangle(new Pen(part.btnStyle.lineColor,part.btnStyle.lineWidth), part.btnRect);
                 g.DrawLines(new Pen(part.lineStyle.lineColor,part.lineStyle.lineWidth), part.linePoints);
                 Font f = new Font(part.fontStyle.font, part.fontStyle.fontSize);

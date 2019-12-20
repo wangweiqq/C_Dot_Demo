@@ -20,6 +20,9 @@ namespace DrawImage
 
         private void button1_Click(object sender, EventArgs e)
         {
+            ReDraw();
+        }
+        void ReDraw() {
             Image bkimg = Image.FromFile("img/bk.jpg");
             Bitmap bmp = new Bitmap(bkimg.Width, bkimg.Height, PixelFormat.Format32bppArgb);
 
@@ -49,7 +52,7 @@ namespace DrawImage
 
 
             g.Flush();
-            pictureBox1.Image = bmp;            
+            pictureBox1.Image = bmp;
             g.Dispose();
             bkimg.Dispose();
         }
@@ -67,15 +70,25 @@ namespace DrawImage
                 Console.WriteLine("{0}被点击.", str);
             }
         }
-
+        string strPress = "";
         private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
         {
-
+            string str = ReadConfig.Instance().BtnClick(new Point(e.X, e.Y));
+            if (!string.IsNullOrEmpty(str))
+            {
+                strPress = str;
+                ((SmallParts)(ReadConfig.Instance().table[str])).isPress = true;
+                ReDraw();
+            }
         }
 
         private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
         {
-
+            if (!string.IsNullOrEmpty(strPress)) {
+                ((SmallParts)(ReadConfig.Instance().table[strPress])).isPress = false;
+                ReDraw();
+                strPress = "";
+            }
         }
 
         private void Form1_Load(object sender, EventArgs e)
