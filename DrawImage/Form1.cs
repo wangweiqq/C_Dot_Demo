@@ -77,7 +77,8 @@ namespace DrawImage
             if (!string.IsNullOrEmpty(str))
             {
                 strPress = str;
-                ((SmallParts)(ReadConfig.Instance().table[str])).isPress = true;
+                ReadConfig.Instance().GetSmallPart(str).isPress = true;
+                //((SmallParts)(ReadConfig.Instance().table[str])).isPress = true;
                 ReDraw();
             }
         }
@@ -85,7 +86,7 @@ namespace DrawImage
         private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
         {
             if (!string.IsNullOrEmpty(strPress)) {
-                ((SmallParts)(ReadConfig.Instance().table[strPress])).isPress = false;
+                ReadConfig.Instance().GetSmallPart(strPress).isPress = false;
                 ReDraw();
                 strPress = "";
             }

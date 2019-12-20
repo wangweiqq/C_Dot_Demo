@@ -176,6 +176,10 @@ namespace DrawImage
                 line.lineColor = ParseColor(token);
             }
         }
+        public SmallParts GetSmallPart(string id)
+        { 
+            return (SmallParts)table[id];
+        }
         SmallParts ParseParts(JToken json) {
             SmallParts part = new SmallParts();
             part.btnStyle = btnGlobal;
