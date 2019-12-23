@@ -29,7 +29,7 @@ namespace DrawImage
             Graphics g = Graphics.FromImage(bmp);
             g.DrawImage(bkimg, 0, 0);
 
-            ReadConfig.Instance().DrawSmallParts(ref g);
+            ReadButConfig.Instance().DrawSmallParts(ref g);
 
             //Color c = Color.FromArgb(255, 0, 0);
             //Pen btnPen = new Pen(c, 2);
@@ -68,7 +68,7 @@ namespace DrawImage
         private void pictureBox1_MouseClick(object sender, MouseEventArgs e)
         {
             //Console.WriteLine("MouseClick ({0},{1})", e.X, e.Y);
-            string str = ReadConfig.Instance().BtnClick(new Point(e.X,e.Y));
+            string str = ReadButConfig.Instance().BtnClick(new Point(e.X,e.Y));
             if (!string.IsNullOrEmpty(str)) {
                 Console.WriteLine("{0}被点击.", str);
             }
@@ -93,11 +93,11 @@ namespace DrawImage
             //else {
             //    p = new Point((int)(e.X * scalex), (int)(e.Y * scalex));
             //}
-            string str = ReadConfig.Instance().BtnClick(p);
+            string str = ReadButConfig.Instance().BtnClick(p);
             if (!string.IsNullOrEmpty(str))
             {
                 strPress = str;
-                ReadConfig.Instance().GetSmallPart(str).isPress = true;
+                ReadButConfig.Instance().GetSmallPart(str).isPress = true;
                 //((SmallParts)(ReadConfig.Instance().table[str])).isPress = true;
                 ReDraw();
             }
@@ -106,7 +106,7 @@ namespace DrawImage
         private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
         {
             if (!string.IsNullOrEmpty(strPress)) {
-                ReadConfig.Instance().GetSmallPart(strPress).isPress = false;
+                ReadButConfig.Instance().GetSmallPart(strPress).isPress = false;
                 ReDraw();
                 strPress = "";
             }
@@ -114,7 +114,7 @@ namespace DrawImage
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            ReadConfig.Instance();
+            ReadButConfig.Instance();
         }
     }
 }

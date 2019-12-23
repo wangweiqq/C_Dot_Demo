@@ -46,9 +46,9 @@ namespace DrawImage
         public Point[] linePoints;//链接线点位置
         public bool isPress = false;//是否被按下
     }
-    public class ReadConfig
+    public class ReadButConfig
     {
-        static ReadConfig obj = null;
+        static ReadButConfig obj = null;
         ButtonStyle btnGlobal;
         FontStyle fontGlobal;
         LineStyle lineGlobal;
@@ -57,13 +57,13 @@ namespace DrawImage
         /// </summary>
         Region btnRegion;
         public Hashtable table;
-        public static ReadConfig Instance() {
+        public static ReadButConfig Instance() {
             if (obj == null) {
-                obj = new ReadConfig();
+                obj = new ReadButConfig();
             }
             return obj;
         }
-        private ReadConfig() {
+        private ReadButConfig() {
             table = new Hashtable();
             FileStream fd = new FileStream("Config.json",FileMode.Open);
             byte[] buff = new byte[fd.Length];
@@ -82,7 +82,7 @@ namespace DrawImage
                 btnRegion.Union(part.btnRect);
             }
         }
-        ~ReadConfig() { }
+        ~ReadButConfig() { }
         /// <summary>
         /// 解析字体样式
         /// </summary>
