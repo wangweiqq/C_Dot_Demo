@@ -80,19 +80,19 @@ namespace DrawImage
             float scalex = ((float)bkimg.Width) / pictureBox1.Width;
             float scaley = ((float)bkimg.Height) / pictureBox1.Height;
             Point p;
-            if (scalex < scaley)
+            if (scalex <= scaley)
             {
                 int offsetx = (int)((pictureBox1.Width - (bkimg.Width / scaley))/2);
                 p = new Point((int)((e.X - offsetx) * scaley), (int)(e.Y * scaley));
             }
-            else if (scalex > scaley)
+            else
             {
                 int offsety = (int)((pictureBox1.Height - (bkimg.Height / scalex)) / 2);
                 p = new Point((int)(e.X  * scalex), (int)((e.Y - offsety) * scalex));
             }
-            else {
-                p = new Point((int)(e.X * scalex), (int)(e.Y * scalex));
-            }
+            //else {
+            //    p = new Point((int)(e.X * scalex), (int)(e.Y * scalex));
+            //}
             string str = ReadConfig.Instance().BtnClick(p);
             if (!string.IsNullOrEmpty(str))
             {
