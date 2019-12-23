@@ -52,7 +52,10 @@ namespace DrawImage
 
 
             g.Flush();
+            pictureBox1.BackgroundImageLayout = ImageLayout.Stretch;
+            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox1.Image = bmp;
+            
             g.Dispose();
             bkimg.Dispose();
         }
@@ -73,7 +76,24 @@ namespace DrawImage
         string strPress = "";
         private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
         {
-            string str = ReadConfig.Instance().BtnClick(new Point(e.X, e.Y));
+            Image bkimg = Image.FromFile("img/bk.jpg");
+            float scalex = ((float)bkimg.Width) / pictureBox1.Width;
+            float scaley = ((float)bkimg.Height) / pictureBox1.Height;
+            Point p;
+            if (scalex < scaley)
+            {
+                int offsetx = (int)((pictureBox1.Width - (bkimg.Width / scaley))/2);
+                p = new Point((int)((e.X - offsetx) * scaley), (int)(e.Y * scaley));
+            }
+            else if (scalex > scaley)
+            {
+                int offsety = (int)((pictureBox1.Height - (bkimg.Height / scalex)) / 2);
+                p = new Point((int)(e.X  * scalex), (int)((e.Y - offsety) * scalex));
+            }
+            else {
+                p = new Point((int)(e.X * scalex), (int)(e.Y * scalex));
+            }
+            string str = ReadConfig.Instance().BtnClick(p);
             if (!string.IsNullOrEmpty(str))
             {
                 strPress = str;
