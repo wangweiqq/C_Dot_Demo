@@ -11,43 +11,47 @@ using Newtonsoft.Json.Linq;
 
 namespace DrawImage
 {
-    /// <summary>
-    /// 文字按钮样式
-    /// </summary>
-    public struct ButtonStyle
-    {
-        public int width;//矩形框宽
-        public int height;//矩形框高
-        public int lineWidth;//矩形边框线宽
-        public Point pos;//矩形左上角点
-        public string text;//矩形文本
-        public Color lineColor;//矩形边框颜色
-        public Color fillColor;//矩形填充颜色
-        public Color pressColor;//鼠标按下颜色
-    }
-    /// <summary>
-    /// 字体样式
-    /// </summary>
-    public struct FontStyle {
-        public Color fontColor;//字体颜色
-        public string font;//字体
-        public uint fontSize;//字体大小
-    }
-    public struct LineStyle {
-        public int lineWidth;//连接线宽
-        public Color lineColor;//连接颜色
-    }
-    public class SmallParts {
-        public string id;//标签id号
-        public ButtonStyle btnStyle;//标签矩形样式，无使用全局样式
-        public FontStyle fontStyle;//同上
-        public LineStyle lineStyle;//同上
-        public Rectangle btnRect;//同按钮矩形，用于查询是否点击
-        public Point[] linePoints;//链接线点位置
-        public bool isPress = false;//是否被按下
-    }
+    
     public class ReadButConfig
     {
+        /// <summary>
+        /// 文字按钮样式
+        /// </summary>
+        public struct ButtonStyle
+        {
+            public int width;//矩形框宽
+            public int height;//矩形框高
+            public int lineWidth;//矩形边框线宽
+            public Point pos;//矩形左上角点
+            public string text;//矩形文本
+            public Color lineColor;//矩形边框颜色
+            public Color fillColor;//矩形填充颜色
+            public Color pressColor;//鼠标按下颜色
+        }
+        /// <summary>
+        /// 字体样式
+        /// </summary>
+        public struct FontStyle
+        {
+            public Color fontColor;//字体颜色
+            public string font;//字体
+            public uint fontSize;//字体大小
+        }
+        public struct LineStyle
+        {
+            public int lineWidth;//连接线宽
+            public Color lineColor;//连接颜色
+        }
+        public class SmallParts
+        {
+            public string id;//标签id号
+            public ButtonStyle btnStyle;//标签矩形样式，无使用全局样式
+            public FontStyle fontStyle;//同上
+            public LineStyle lineStyle;//同上
+            public Rectangle btnRect;//同按钮矩形，用于查询是否点击
+            public Point[] linePoints;//链接线点位置
+            public bool isPress = false;//是否被按下
+        }
         static ReadButConfig obj = null;
         ButtonStyle btnGlobal;
         FontStyle fontGlobal;

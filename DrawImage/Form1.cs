@@ -29,28 +29,9 @@ namespace DrawImage
             Graphics g = Graphics.FromImage(bmp);
             g.DrawImage(bkimg, 0, 0);
 
-            ReadButConfig.Instance().DrawSmallParts(ref g);
-
-            //Color c = Color.FromArgb(255, 0, 0);
-            //Pen btnPen = new Pen(c, 2);
-            //Brush btnBrush = new SolidBrush(Color.Blue);
-            //g.FillRectangle(btnBrush, new Rectangle(19, 31, 70, 30));
-            //g.DrawRectangle(btnPen, new Rectangle(19, 31, 70, 30));
-            //int x = 19 + 70;
-            //int y = 31 + 30 / 2;
-            //int x2 = 200;
-            //int y2 = 118;
-            //int x3 = x + (x2 - x)/2;
-            ////int y3 = y + (y2 - y)/2;
-            //Pen linePen = new Pen(Color.Yellow, 3);
-            //Point[] pos = new Point[] { new Point(x,y),new Point(x3,y),new Point(x3,y2),new Point(x2,y2)};
-            //g.DrawLines(linePen, pos);
-            //Font f = new Font("微软雅黑", 9);
-            //Brush fontBrush = new SolidBrush(Color.White);
-            //SizeF strSize = g.MeasureString("测试矩形框", f);
-            //g.DrawString("测试矩形框", f, fontBrush, new RectangleF(19, 31 + (30 - strSize.Height)/2, 70, 30));
-
-
+            //ReadButConfig.Instance().DrawSmallParts(ref g);
+            ReadTableConfig.Instance().DrawParts(ref g);
+           
             g.Flush();
             pictureBox1.BackgroundImageLayout = ImageLayout.Stretch;
             pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
@@ -68,53 +49,53 @@ namespace DrawImage
         private void pictureBox1_MouseClick(object sender, MouseEventArgs e)
         {
             //Console.WriteLine("MouseClick ({0},{1})", e.X, e.Y);
-            string str = ReadButConfig.Instance().BtnClick(new Point(e.X,e.Y));
-            if (!string.IsNullOrEmpty(str)) {
-                Console.WriteLine("{0}被点击.", str);
-            }
+            //string str = ReadButConfig.Instance().BtnClick(new Point(e.X,e.Y));
+            //if (!string.IsNullOrEmpty(str)) {
+            //    Console.WriteLine("{0}被点击.", str);
+            //}
         }
         string strPress = "";
         private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
         {
-            Image bkimg = Image.FromFile("img/bk.jpg");
-            float scalex = ((float)bkimg.Width) / pictureBox1.Width;
-            float scaley = ((float)bkimg.Height) / pictureBox1.Height;
-            Point p;
-            if (scalex <= scaley)
-            {
-                int offsetx = (int)((pictureBox1.Width - (bkimg.Width / scaley))/2);
-                p = new Point((int)((e.X - offsetx) * scaley), (int)(e.Y * scaley));
-            }
-            else
-            {
-                int offsety = (int)((pictureBox1.Height - (bkimg.Height / scalex)) / 2);
-                p = new Point((int)(e.X  * scalex), (int)((e.Y - offsety) * scalex));
-            }
-            //else {
-            //    p = new Point((int)(e.X * scalex), (int)(e.Y * scalex));
+            //Image bkimg = Image.FromFile("img/bk.jpg");
+            //float scalex = ((float)bkimg.Width) / pictureBox1.Width;
+            //float scaley = ((float)bkimg.Height) / pictureBox1.Height;
+            //Point p;
+            //if (scalex <= scaley)
+            //{
+            //    int offsetx = (int)((pictureBox1.Width - (bkimg.Width / scaley))/2);
+            //    p = new Point((int)((e.X - offsetx) * scaley), (int)(e.Y * scaley));
             //}
-            string str = ReadButConfig.Instance().BtnClick(p);
-            if (!string.IsNullOrEmpty(str))
-            {
-                strPress = str;
-                ReadButConfig.Instance().GetSmallPart(str).isPress = true;
-                //((SmallParts)(ReadConfig.Instance().table[str])).isPress = true;
-                ReDraw();
-            }
+            //else
+            //{
+            //    int offsety = (int)((pictureBox1.Height - (bkimg.Height / scalex)) / 2);
+            //    p = new Point((int)(e.X  * scalex), (int)((e.Y - offsety) * scalex));
+            //}
+            ////else {
+            ////    p = new Point((int)(e.X * scalex), (int)(e.Y * scalex));
+            ////}
+            //string str = ReadButConfig.Instance().BtnClick(p);
+            //if (!string.IsNullOrEmpty(str))
+            //{
+            //    strPress = str;
+            //    ReadButConfig.Instance().GetSmallPart(str).isPress = true;
+            //    //((SmallParts)(ReadConfig.Instance().table[str])).isPress = true;
+            //    ReDraw();
+            //}
         }
 
         private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
         {
-            if (!string.IsNullOrEmpty(strPress)) {
-                ReadButConfig.Instance().GetSmallPart(strPress).isPress = false;
-                ReDraw();
-                strPress = "";
-            }
+            //if (!string.IsNullOrEmpty(strPress)) {
+            //    ReadButConfig.Instance().GetSmallPart(strPress).isPress = false;
+            //    ReDraw();
+            //    strPress = "";
+            //}
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            ReadButConfig.Instance();
+            //ReadButConfig.Instance();
         }
     }
 }
