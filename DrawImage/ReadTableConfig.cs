@@ -297,7 +297,17 @@ namespace DrawImage
                 return new Color();
             }
             string[] strcolor = ((string)json).Split(',');
-            return Color.FromArgb(byte.Parse(strcolor[0]), byte.Parse(strcolor[1]), byte.Parse(strcolor[2]));
+            if (strcolor.Length == 3)
+            {
+                return Color.FromArgb(byte.Parse(strcolor[0]), byte.Parse(strcolor[1]), byte.Parse(strcolor[2]));
+            }
+            else if (strcolor.Length == 4)
+            {
+                return Color.FromArgb(byte.Parse(strcolor[3]),byte.Parse(strcolor[0]), byte.Parse(strcolor[1]), byte.Parse(strcolor[2]));
+            }
+            else {
+                throw new Exception("参数错误");
+            }
         }
         Point ParsePoint(JToken json)
         {
