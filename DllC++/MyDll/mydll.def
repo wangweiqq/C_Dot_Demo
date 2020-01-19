@@ -1,0 +1,4 @@
+LIBRARY
+EXPORTS
+RegisterCallBack @1
+Add @2
