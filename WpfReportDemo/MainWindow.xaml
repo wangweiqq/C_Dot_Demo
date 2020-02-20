@@ -1,0 +1,53 @@
+﻿<Window x:Class="WpfReportDemo.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfReportDemo"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="650.926" Width="998.148" Loaded="Window_Loaded">
+    <Window.Resources>
+        <local:TableIdConvert x:Key="xmlIdConvert"></local:TableIdConvert>
+        <local:TableAddrsConvert x:Key="xmlAddrsConvert"></local:TableAddrsConvert>
+    </Window.Resources>
+    <DockPanel>
+        <Grid DockPanel.Dock="Left" Width="212" Margin="5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Button Grid.Row="0" Name="btnLoadExcel" Content="加载Excel模板" Click="btnLoadExcel_Click"/>
+            <ListBox Grid.Row="1"  Name="listTable"  SelectionChanged="listTable_SelectionChanged">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Border BorderThickness="1" BorderBrush="Blue" Width="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type ListBoxItem}},Path=ActualWidth}" CornerRadius="10">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <StackPanel Grid.Row="0"></StackPanel>
+                                <StackPanel Grid.Row="1"></StackPanel>
+                                <Label Grid.Row="0" HorizontalAlignment="Center"  Content="{Binding Path=Id,Converter={StaticResource xmlIdConvert}}"></Label>
+                                <Label Grid.Row="1" Padding="15,0,0,0" Content="{Binding Path=Addrs,Converter={StaticResource xmlAddrsConvert}}"></Label>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </Grid>
+        <StackPanel Name="stackpanel1" DockPanel.Dock="Top" Orientation="Horizontal" Height="50" Margin="5">
+            <TextBlock Name="lblCell" TextWrapping="Wrap" TextAlignment="Center" Width="100" Height="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type StackPanel}},Path=Height}"  Margin="5"  Text="修改单元格：" ></TextBlock>
+
+            <CheckBox Name="chkLockCell" Content="锁定修改" VerticalAlignment="Center"  Margin="5"/>
+            <CheckBox Name="chkFormula" Content="公式" VerticalAlignment="Center" Margin="5"/>
+            <TextBox Name="txtDisplay" Width="250" TextWrapping="Wrap" Margin="5"/>
+            <Button Name="btnUpdate" Content=" 修改" Width="100" Margin="5" Click="btnUpdate_Click"/>
+        </StackPanel>
+        <DataGrid DockPanel.Dock="Bottom" Margin="5" x:Name="dataGrid" 
+                  CanUserAddRows="False" SelectionUnit="Cell" 
+                  SelectionMode="Single" CanUserSortColumns="False" 
+                  IsReadOnly="True" 
+                  SelectedCellsChanged="dataGrid_SelectedCellsChanged" />
+    </DockPanel>
+</Window>
