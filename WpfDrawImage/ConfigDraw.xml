@@ -1,0 +1,18 @@
+<Root>
+<WorkImage id="1" ImgPath="/img/bk.jpg">
+  <Group id="id_table1" DataControl="view1">
+    <DataGrid Name="view1" ItemsSource="{Binding}" Canvas.Left="292" Canvas.Top="230" Width="Auto" Height="Auto" CanUserAddRows="False" SelectionUnit="Cell" SelectionMode="Single" CanUserSortColumns="False" IsReadOnly="True"  >
+    </DataGrid>
+    <Polyline StrokeThickness="2"  Stroke="Yellow" Points="292 230 317 124"></Polyline>
+  </Group>
+  <Group id="id_table2" DataControl="view2">
+    <TextBlock Name="view2" Padding="5" Canvas.Left="19" Canvas.Top="31">
+      <Border BorderThickness="1"></Border>
+        <TextBlock.Background>
+          <SolidColorBrush Color="White"></SolidColorBrush>
+        </TextBlock.Background>
+    </TextBlock>
+    <Polyline StrokeThickness="2"  Stroke="Red" Points="89 46 144 46 144 118 200 118"></Polyline>
+  </Group>
+</WorkImage>
+</Root>

@@ -1,0 +1,36 @@
+﻿<Window x:Class="WpfDrawImage.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfDrawImage"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="350" Width="525">
+    <DockPanel>
+        <StackPanel DockPanel.Dock="Left" Background="Pink" Width="100">
+            <Button Content="添加id_table1" Click="Button_Click"/>
+            <Button Content="添加id_table2" Click="Button_Click_1"/>
+            <Button Content="添加imgi" Click="Button_Click_2"/>
+        </StackPanel>
+        <StackPanel DockPanel.Dock="Top" Background="Orange" Height="100"></StackPanel>
+        <ScrollViewer DockPanel.Dock="Bottom" HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+            <Canvas Name="canvas" Width="{Binding ElementName=imgFloor,Path=Width}" Height="{Binding ElementName=imgFloor,Path=Height}">
+                <Image Name="imgFloor" Canvas.Left="0" Canvas.Top="0" Width="200" Height="200" />
+                <!--<DataGrid x:Name="dataGrid" ItemsSource="{Binding}" Canvas.Left="292" Canvas.Top="230" Width="Auto" Height="Auto" CanUserAddRows="False" SelectionUnit="Cell" 
+                  SelectionMode="Single"  CanUserSortColumns="False" IsReadOnly="True"  >
+                </DataGrid>
+                <Polyline StrokeThickness="2"  Stroke="Yellow" Points="292 230 317 124"></Polyline>
+                <TextBlock Padding="5" Canvas.Left="19" Canvas.Top="31" x:Name="Label1" Text="{Binding}">
+                    <Border BorderThickness="1"></Border>
+                    <TextBlock.Background>
+                        <SolidColorBrush Color="White"></SolidColorBrush>
+                    </TextBlock.Background>
+                </TextBlock>
+                <Polyline StrokeThickness="2"  Stroke="Red" Points="89 46 144 46 144 118 200 118"></Polyline>-->
+            </Canvas>
+        </ScrollViewer>
+        <!--<Canvas DockPanel.Dock="Bottom">
+            <Image Name="imgFloor" Canvas.Left="0" Canvas.Top="0" Width="200" Height="200" />
+        </Canvas>-->
+    </DockPanel>
+</Window>
